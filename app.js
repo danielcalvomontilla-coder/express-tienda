@@ -20,31 +20,31 @@ app.get('/', (req, res) => {
 
 app.get('/electronica', (req, res) => {
     const products = productsData.filter(product => product.category === 'electrónica');
-    res.json(products);
+    res.send(products);
 });
 
 app.get('/ropa', (req, res) => {
     const products = productsData.filter(product => product.category === 'ropa');
-    res.json(products);
+    res.send(products);
 });
 
 app.get('/hogar', (req, res) => {
     const products = productsData.filter(product => product.category === 'hogar');
-    res.json(products);
+    res.send(products);
 }); 
 
 app.get('/productos', (req, res) => {
-    res.json(productsData);
+    res.send(productsData);
 });
 
 app.get('/productos/baratos', (req, res) => {
     const cheapProducts = productsData.filter(product => product.price < 100);
-    res.json(cheapProducts);
+    res.send(cheapProducts);
 });     
 
 app.get('/productos/caros', (req, res) => {
     const expensiveProducts = productsData.filter(product => product.price >= 100);
-    res.json(expensiveProducts);
+    res.send(expensiveProducts);
 });
 
 
