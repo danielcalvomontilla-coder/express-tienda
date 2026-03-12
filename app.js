@@ -2,49 +2,119 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+const nav = `
+<nav>
+  <a href="/">Inicio</a> |
+  <a href="/electronica">Electrónica</a> |
+  <a href="/ropa">Ropa</a> |
+  <a href="/hogar">Hogar</a> |
+  <a href="/productos">Productos</a> |
+  <a href="/productos/baratos">Productos Baratos</a> |
+  <a href="/productos/caros">Productos Caros</a>
+</nav>
+`;
+
 app.get('/', (req, res) => {
     res.send(`
     <h1>Welcome to our online store!</h1>
-    <nav>
-      <a href="/">Inicio</a> |
-      <a href="/electronica">Electrónica</a> |
-      <a href="/ropa">Ropa</a>
-      <a href="/hogar">Hogar</a>
-      <a href="/productos">Productos</a>
-      <a href="/productos/baratos">Productos Baratos</a>
-      <a href="/productos/caros">Productos Caros</a>
-    </nav>
-    <p>Bienvenido a la página principal</p>
+     ${nav}
+      
   `);
 });
 
 app.get('/electronica', (req, res) => {
     const products = productsData.filter(product => product.category === 'electrónica');
-    res.send(products);
+    res.send(`
+        <h1>Productos de Electrónica</h1>
+        ${nav}
+
+        ${products.map(product => `
+            <p>
+            <b>Nombre:</b> ${product.name}<br>
+            <b>Precio:</b> ${product.price}€<br>
+            <b>Stock:</b> ${product.stock}
+            </p>
+        `).join("")}
+    `);
 });
 
 app.get('/ropa', (req, res) => {
     const products = productsData.filter(product => product.category === 'ropa');
-    res.send(products);
+    res.send(`
+        <h1>Productos de Ropa</h1>
+        ${nav}
+
+        ${products.map(product => `
+            <p>
+            <b>Nombre:</b> ${product.name}<br>
+            <b>Precio:</b> ${product.price}€<br>
+            <b>Stock:</b> ${product.stock}
+            </p>
+        `).join("")}
+    `);
 });
 
 app.get('/hogar', (req, res) => {
     const products = productsData.filter(product => product.category === 'hogar');
-    res.send(products);
-}); 
+    res.send(`
+        <h1>Productos de Hogar</h1>
+        ${nav}
+
+        ${products.map(product => `
+            <p>
+            <b>Nombre:</b> ${product.name}<br>
+            <b>Precio:</b> ${product.price}€<br>
+            <b>Stock:</b> ${product.stock}
+            </p>
+        `).join("")}
+    `);
+});
 
 app.get('/productos', (req, res) => {
-    res.send(productsData);
+    res.send(`
+        <h1>Todos los Productos</h1>
+        ${nav}
+
+        ${productsData.map(product => `
+            <p>
+            <b>Nombre:</b> ${product.name}<br>
+            <b>Precio:</b> ${product.price}€<br>
+            <b>Stock:</b> ${product.stock}
+            </p>
+        `).join("")}
+    `);
 });
 
 app.get('/productos/baratos', (req, res) => {
     const cheapProducts = productsData.filter(product => product.price < 100);
-    res.send(cheapProducts);
+    res.send(`
+        <h1>Productos Baratos</h1>
+        ${nav}
+
+        ${cheapProducts.map(product => `
+            <p>
+            <b>Nombre:</b> ${product.name}<br>
+            <b>Precio:</b> ${product.price}€<br>
+            <b>Stock:</b> ${product.stock}
+            </p>
+        `).join("")}
+    `);
 });     
 
 app.get('/productos/caros', (req, res) => {
     const expensiveProducts = productsData.filter(product => product.price >= 100);
-    res.send(expensiveProducts);
+    res.send(`
+        <h1>Productos Caros</h1>
+        ${nav}
+
+        ${expensiveProducts.map(product => `
+            <p>
+            <b>Nombre:</b> ${product.name}<br>
+            <b>Precio:</b> ${product.price}€<br>
+            <b>Stock:</b> ${product.stock}
+            </p>
+        `).join("")}
+    `);
 });
 
 
